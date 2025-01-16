@@ -1,4 +1,5 @@
 name: Python Workflow
+
 on: [push, pull_request]
 
 jobs:
@@ -13,8 +14,12 @@ jobs:
     - name: Configurar ambiente Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.9
+        python-version: '3.9'
+
+    - name: Instalar dependências
+      run: |
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Executar testes
       run: |
-               python testes.py
+        python -m unittest discover
